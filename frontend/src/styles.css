@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+/* Importação global do Bootstrap */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* Você pode adicionar estilos customizados globais aqui embaixo, se quiser */
+body {
+  background: #f4f7fc;
+}

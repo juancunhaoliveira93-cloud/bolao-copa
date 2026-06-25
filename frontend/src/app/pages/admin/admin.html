@@ -1,0 +1,93 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger mb-4">
+  <div class="container">
+    <a class="navbar-brand text-white fw-bold" href="#">
+      <i class="fas fa-user-shield me-2"></i>Área do Administrador
+    </a>
+    <button class="btn btn-outline-light btn-sm" (click)="logout()">
+      <i class="fas fa-sign-out-alt"></i> Sair
+    </button>
+  </div>
+</nav>
+
+<div class="container py-2 single-col" style="max-width: 900px;">
+
+  <div class="card shadow-sm border-0 mb-5" style="border-radius: 1rem;">
+    <div class="card-body p-4">
+      <h5 class="card-title text-danger mb-3 border-bottom pb-2">
+        <i class="fas fa-plus-circle me-1"></i> Cadastrar Nova Partida
+      </h5>
+      
+      <form (ngSubmit)="createMatch()">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-3">
+            <label class="form-label small fw-bold text-muted">Time A</label>
+            <input type="text" class="form-control" name="teamA" [(ngModel)]="newMatch.teamA" required placeholder="Ex: Brasil">
+          </div>
+          
+          <div class="col-md-3">
+            <label class="form-label small fw-bold text-muted">Time B</label>
+            <input type="text" class="form-control" name="teamB" [(ngModel)]="newMatch.teamB" required placeholder="Ex: Argentina">
+          </div>
+          
+          <div class="col-md-4">
+            <label class="form-label small fw-bold text-muted">Data e Hora</label>
+            <input type="datetime-local" class="form-control" name="matchDate" [(ngModel)]="newMatch.matchDate" required>
+          </div>
+          
+          <div class="col-md-2">
+            <button type="submit" class="btn btn-danger w-100 fw-bold">Cadastrar</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <h5 class="mb-3" style="color: #1e4a6e;">
+    <i class="fas fa-list-ul me-2"></i> Gerenciar Partidas
+  </h5>
+
+  <div class="table-responsive bg-white rounded shadow-sm border-0 p-3">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Data/Hora</th>
+          <th>Confronto</th>
+          <th>Status</th>
+          <th class="text-center">Resultado Final</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let match of matches">
+          <td class="small">{{ match.matchDate | date:'dd/MM/yyyy HH:mm' }}</td>
+          <td class="fw-bold">{{ match.teamA }} <span class="text-muted fw-normal mx-1">x</span> {{ match.teamB }}</td>
+          <td>
+            <span class="badge" [ngClass]="{'bg-success': match.status === 'finished', 'bg-warning text-dark': match.status !== 'finished'}">
+              {{ match.status === 'finished' ? 'Encerrado' : 'Aberto' }}
+            </span>
+          </td>
+          <td class="text-center">
+            <span *ngIf="match.status === 'finished'" class="fw-bold fs-5 text-success">
+              {{ match.resultA }} x {{ match.resultB }}
+            </span>
+            
+            <div *ngIf="match.status !== 'finished'" class="d-flex justify-content-center align-items-center">
+              <input type="number" class="form-control form-control-sm text-center" style="width: 50px;" [(ngModel)]="match.resultA" min="0">
+              <span class="mx-2 fw-bold text-muted">x</span>
+              <input type="number" class="form-control form-control-sm text-center" style="width: 50px;" [(ngModel)]="match.resultB" min="0">
+            </div>
+          </td>
+          <td>
+            <button *ngIf="match.status !== 'finished'" class="btn btn-sm btn-success w-100" (click)="updateResult(match)">
+              Lançar Placar
+            </button>
+            <button *ngIf="match.status === 'finished'" class="btn btn-sm btn-secondary w-100 disabled">
+              Finalizado
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
