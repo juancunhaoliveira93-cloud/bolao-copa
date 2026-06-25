@@ -29,20 +29,15 @@ coverage/
 # ==========================================
 # FRONTEND (Angular)
 # ==========================================
-# Código compilado e builds
-/frontend/dist/
-/frontend/tmp/
-/frontend/out-tsc/
-/frontend/bazel-out/
-
-# Cache do Angular
-/frontend/.angular/
-
-# Relatórios de testes
-/frontend/coverage/
+/front-end/dist/
+/front-end/tmp/
+/front-end/out-tsc/
+/front-end/bazel-out/
+/front-end/.angular/
+/front-end/coverage/
 
 # ==========================================
-# IDEs E EDITORES (VS Code, WebStorm, etc)
+# IDEs E EDITORES
 # ==========================================
 .vscode/*
 !.vscode/settings.json
